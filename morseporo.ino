@@ -1,4 +1,8 @@
-/* This code will be commented later */
+/* 
+   Morseporo
+    
+   Mikko Pikarinen OH2MP 2018
+*/
 
 #include <ESP8266WiFi.h>
 #include <WiFiClient.h>
