@@ -20,7 +20,7 @@
 /* Comment out if you don't need debug info to serial port */
 #define USESERIAL 1
 
-/* Generic mapping of pins */
+/* Generic mapping of NodeMCU pins */
 #define D0 16
 #define D1 5
 #define D2 4
@@ -39,9 +39,9 @@
 
 /* Definition of global variables */
 File file;
-String html;
-String okhtml;
-String message;
+String html;    // index page
+String okhtml;  // ok page for save
+String message; // contains the message
 String morsebin = "111010111010001110111010111000000"; // CQ placeholder
 int morseindex = 0;
 char *(morse[256]);
@@ -49,7 +49,7 @@ ESP8266WebServer server(80); // Listen http
 IPAddress apIP(10,0,36,99);  // The IP address of the AP
 DNSServer dnsServer;
 
-/* This function is run by timer interrupt and handles the blinking
+/* This function is run by timer interrupt and handles the blinking.
    The morse message is encoded to a string containing 0's and 1's and
    depending of it the relays are switched on or off. On every interrupt
    we take next "bit" from the string and control the relays.
@@ -59,6 +59,7 @@ DNSServer dnsServer;
 void ICACHE_RAM_ATTR morseTimerISR () {
     morseindex++;
     if (morseindex > morsebin.length()) {morseindex = 0;}
+    /* If there is "1" then switch on, otherwise switch off. */
     if (morsebin.charAt(morseindex) == 0x31) {
         digitalWrite(RELAY1, HIGH);
         digitalWrite(RELAY2, HIGH);
