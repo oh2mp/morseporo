@@ -2,6 +2,8 @@
    Morseporo
     
    Mikko Pikarinen OH2MP 2018
+
+   https://github.com/oh2mp/morseporo/
 */
 
 #include <ESP8266WiFi.h>
@@ -13,7 +15,7 @@
 
 /* set SSID and password for AP */
 #define APSSID "OH99PORO"
-#define APPASS "12345678"
+#define APPASS "sharkhook"
 
 /* Comment out if you don't need debug info to serial port */
 #define USESERIAL 1
@@ -124,7 +126,6 @@ void setup() {
     /* Initialize the data pins */
     pinMode(RELAY1, OUTPUT);
     pinMode(RELAY2, OUTPUT);
-
     digitalWrite(RELAY1, LOW);
     digitalWrite(RELAY2, LOW);
 
@@ -139,6 +140,7 @@ void setup() {
     file = SPIFFS.open("/message.txt", "r");
     message = file.readString();
     message.toLowerCase();
+    message.trim();
     file.close();
     message2morse(); // convert to "binary" string
 
@@ -223,7 +225,7 @@ void handleSave() {
         return;
     }
 
-    /* save message to file and convert to "binary" */
+    /* save message to file and convert it to "binary" into the memory */
     file = SPIFFS.open("/message.txt", "w");
     file.print(message);
     file.close();
@@ -235,7 +237,7 @@ void handleSave() {
     #endif
 }
 
-/* Handle http request to root */
+/* Handle http request to root. We use ISO-8859-1 because that we don't need to handle two byte characters like UTF-8 */
 void handleRoot() {
     String htmlout = html;
     htmlout.replace("###MESSAGE###", message);
