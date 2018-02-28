@@ -1,3 +1,5 @@
+<!meta property="og:image" content="https://raw.githubusercontent.com/wiki/oh2mp/morseporo/img/morsepoross1.png" />
+
 # Morseporo
 A simple WLAN-configurable morse blinker for ESP8266
 
