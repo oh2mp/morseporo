@@ -165,7 +165,7 @@ void setup() {
     server.on("/save", handleSave);
     server.onNotFound([]() {
         server.sendHeader("Location", "/"); 
-        server.send(200, "text/plain", "foo");
+        server.send(200, "text/plain", "QSD QSY");
     });
     server.begin();
 
@@ -251,5 +251,5 @@ void loop() {
     dnsServer.processNextRequest();
     server.handleClient();
 }
-/* The end */
+/* Ei muuta, kiitos hei */
 
